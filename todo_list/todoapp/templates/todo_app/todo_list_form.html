@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+<div>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input
+                style="background-color: #2F8DFF; color: white; border: none"
+                value="Save"
+                type="submit">
+            <button style="background-color: #2F8DFF; color: white; border: none" onclick="location.href='{% url 'index' %}';">Cancel</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>Delete To-do Item</h3>
+
+<p>Are you sure you want to delete the list: <b>{{ object.title }}</b>
+   from the list <i>{{ todo_list.title }}</i>?</p>
+
+<form method="POST">
+    {% csrf_token %}
+    <input
+        style="background-color: #2F8DFF; color: white; border: none"
+        value="Yes, delete."
+        type="submit">
+    {% if todo_list.id %}
+    <button style="background-color: #2F8DFF; color: white; border: none" onclick="location.href='{% url 'list' todo_list.id %}';"> Cancel</button>
+    {% endif %}
+</form>
+
+{% endblock %}

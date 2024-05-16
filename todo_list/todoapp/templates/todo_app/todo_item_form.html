@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h3>{{ title }}</h3>
+<form method="post">
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input
+        style="background-color: #2F8DFF; color: white; border: none"
+        value="Submit"
+        type="submit">
+    {% if todo_list.id and object.id%}
+    <button style="background-color: #2F8DFF; color: white; border: none" onclick="location.href='{% url 'list' todo_list.id %}'">Cancel</button>
+    <button style="background-color: #2F8DFF; color: white; border: none" onclick="location.href='{% url 'item-delete' todo_list.id object.id %}'">Delete this item</button>
+    {% endif %}
+</form>
+
+{% endblock %}

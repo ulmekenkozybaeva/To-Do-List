@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<!--index.html-->
+{% if object_list %}
+<h3>All  lists</h3>
+{% endif %}
+
+<form class="search-extended" action="{% url 'search_results' %}" method="GET">
+    {% csrf_token %}
+    <label for="id_item_title">Task name:</label>
+    <input type="text" name="item_title" value="{{ item_title }}" placeholder="Type the title of a task" class="item_title" maxlength="100" id="id_item_title">
+    <button type="submit" style="background-color: #2F8DFF; color: white; border: none">search</button>
+</form>
+
+<ul>
+    {% for todolist in object_list %}
+    <li>
+        <div
+            role="button"
+            onclick="location.href='{% url 'list' todolist.id %}'">
+            {{ todolist.title }}
+        </div>
+    </li>
+    {% empty %}
+    <h4>There is no lists!</h4>
+    {% endfor %}
+</ul>
+<p>
+    <input
+        style="background-color: #2F8DFF; color: white; border: none"
+        value="Add a new list"
+        type="button"
+        onclick="location.href='{% url 'list-add' %}'"/>
+</p>
+
+{% endblock %}

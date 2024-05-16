@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>Search Results</h1>
+
+    <form class="search-extended" action="{% url 'search_results' %}" method="GET">
+        {% csrf_token %}
+        <label for="id_item_title">Task name:</label>
+        <input type="text" name="item_title" value="{{ item_title }}" placeholder="Type the title of a task" class="item_title" maxlength="100" id="id_item_title">
+        <button type="submit" style="background-color: #2F8DFF; color: white; border: none">search</button>
+    </form>
+
+    {% if page_obj %}
+        <ul>
+            {% for item in page_obj %}
+                <li>{{ item }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+
+    {% if page_obj.has_other_pages %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page=1">&laquo; First</a>
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a  href="?page={{ page_obj.next_page_number }}">Next</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+
+    <button style="background-color: #2F8DFF; color: white; border: none; margin-top: 20px" onclick="location.href='{% url 'index' %}';">Cancel</button>
+
+{% endblock %}

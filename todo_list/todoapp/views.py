@@ -23,6 +23,7 @@ def search_result_form(request):
 class ListListView(ListView):
     model = ToDoList
     template_name = "todo_app/index.html"
+    
 
 class ItemListView(ListView):
     model = ToDoItem
@@ -36,6 +37,7 @@ class ItemListView(ListView):
         context["todo_list"] = ToDoList.objects.get(id=self.kwargs["list_id"])
         return context
 
+
 class ListCreate(CreateView):
     model = ToDoList
     fields = ["title"]
@@ -45,6 +47,7 @@ class ListCreate(CreateView):
         context = super().get_context_data(**kwargs)
         context["title"] = "Add a new list"
         return context
+        
 
 class ItemCreate(CreateView):
     model = ToDoItem
@@ -72,6 +75,7 @@ class ItemCreate(CreateView):
     def get_success_url(self):
         return reverse_lazy("list", args=[self.object.todo_list_id])
 
+
 class ItemUpdate(UpdateView):
     model = ToDoItem
     fields = [
@@ -90,10 +94,12 @@ class ItemUpdate(UpdateView):
     def get_success_url(self):
         return reverse_lazy("list", args=[self.object.todo_list_id])
 
+
 class ListDelete(DeleteView):
     model = ToDoList
     success_url = reverse_lazy("index")
     template_name = "todo_app/todo_list_confirm_delete.html"
+
 
 class ItemDelete(DeleteView):
     model = ToDoItem
